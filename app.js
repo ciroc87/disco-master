@@ -8,8 +8,8 @@ var bodyParser = require('body-parser');
 // Database
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mongodb://127.5.125.2:27017/nodejs');
-
+//var db = monk('mongodb://127.5.125.2:27017/nodejs');  
+var db = monk('mongodb://' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/nodejs');
 var routes = require('./routes/index');
 //var users = require('./routes/users');
 
