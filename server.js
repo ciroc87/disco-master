@@ -11,14 +11,11 @@ var http = require('http');
 /**
  * Get port from environment and store in Express.
  */
-//var port = normalizePort(process.env.PORT || '3000');
-var port =  process.env.OPENSHIFT_NODEJS_PORT || 8080;   // Port 8080 if you run locally
-var address =  process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1"; // Listening to localhost if you run locally
-//app.listen(port, address);
- 
 
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+ 
+//var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-appe.set('address', address);
 
 /**
  * Create HTTP server.
@@ -29,8 +26,14 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, address);
+
 //server.listen(port);
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+ 
+server.listen(port, server_ip_address, function () {
+  console.log( "Listening on " + server_ip_address + ", port " + server_port )
+});
+
 server.on('error', onError);
 server.on('listening', onListening);
 
